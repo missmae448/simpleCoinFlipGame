@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="description" content="This is where your description goes">
+    	<meta name="keywords" content="one, two, three">
+
+		<title>Title in the tab</title>
+
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+
+		<h1>Play Coin Flipper</h1>
+        <p id="Heads">Heads Score: 0</p>
+        <p id="Tails">Tails Score: 0</p>
+        <button id="flip">Flip</button>
+        <button id="reset">Reset Scores</button>
+
+        <script>
+            let headsResult = 0
+            let tailsResult = 0
+            document.getElementById('flip').addEventListener('click', function(){
+                fetch("/coinflip")
+                .then(res => res.json())
+                .then(data =>{ 
+                    if(data.result === 'heads' ){
+                        headsResult += 1
+                    }else{
+                        tailsResult += 1
+                    }
+                    document.getElementById('Heads').innerHTML = `Heads Score: ${headsResult}`
+                    document.getElementById('Tails').innerHTML = `Tails Score: ${tailsResult}`
+                })
+            })
+            document.getElementById('reset').addEventListener('click', function(){
+                headsResult = 0
+                tailsResult = 0
+                document.getElementById('Heads').innerHTML = `Heads Score: ${headsResult}`
+                document.getElementById('Tails').innerHTML = `Tails Score: ${tailsResult}`
+            } )
+            
+        </script>
+	</body>
+</html>
